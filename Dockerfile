@@ -4,8 +4,10 @@
 # hadolint ignore=DL3007
 FROM netboxcommunity/netbox:latest
 
-# Define required plugins
-RUN echo 'netbox-secrets' >> /opt/netbox/plugin_requirements.txt && \
+# Update base image
+RUN apt-get -q update; apt-get -qy upgrade && rm -rf /var/lib/apt/lists/* && \
+  # Define required plugins
+  echo 'netbox-secrets' >> /opt/netbox/plugin_requirements.txt && \
   # Install plugins
  /opt/netbox/venv/bin/pip install  --no-warn-script-location -r /opt/netbox/plugin_requirements.txt && \
  # Install static files from our plugins

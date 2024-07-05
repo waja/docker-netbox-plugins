@@ -13,4 +13,4 @@ RUN apt-get -q update; apt-get -qy upgrade && rm -rf /var/lib/apt/lists/* && \
  # Install static files from our plugins
  SECRET_KEY="dummydummydummydummydummydummydummydummydummydummy" /opt/netbox/venv/bin/python /opt/netbox/netbox/manage.py collectstatic --no-input && \
  # Activate plugins
- echo 'PLUGINS = ["netbox_secrets"]' >> /etc/netbox/config/configuration.py
+ echo 'PLUGINS = ["netbox_secrets"]' >> /etc/netbox/config/extra.py 

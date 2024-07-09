@@ -7,11 +7,11 @@ FROM netboxcommunity/netbox:latest
 # Update base image
 RUN apt-get -q update; apt-get -qy upgrade && rm -rf /var/lib/apt/lists/* && \
   # Define required plugins
-  echo 'netbox-qrcode\nnetbox-interface-synchronization\n' >> /opt/netbox/plugin_requirements.txt && \
+  echo 'netbox-qrcode\nnetbox-interface-synchronization\nnetbox-inventory\n' >> /opt/netbox/plugin_requirements.txt && \
   # Install plugins
   /opt/netbox/venv/bin/pip install  --no-warn-script-location -r /opt/netbox/plugin_requirements.txt && \
   # Install static files from our plugins
   SECRET_KEY="dummydummydummydummydummydummydummydummydummydummy" /opt/netbox/venv/bin/python /opt/netbox/netbox/manage.py collectstatic --no-input && \
   # Activate plugins
   cat /etc/netbox/config/plugins.py && \
-  echo 'PLUGINS = ["netbox_qrcode","netbox_interface_synchronization"]' >> /etc/netbox/config/plugins.py
+  echo 'PLUGINS = ["netbox_qrcode","netbox_interface_synchronization","netbox_inventory"]' >> /etc/netbox/config/plugins.py

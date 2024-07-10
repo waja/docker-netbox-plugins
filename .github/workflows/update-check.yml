@@ -9,7 +9,6 @@
 # Description: Source code update checker
 #
 name: Update Checker
-permissions: write-all
 
 env:
   REPO_URL: https://github.com/netbox-community/netbox-docker

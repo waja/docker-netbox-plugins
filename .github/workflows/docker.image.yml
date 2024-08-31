@@ -10,11 +10,11 @@ on:
       - development
       - master
     tags:
-      - '*.*.*-*'
+      - "*.*.*-*"
   # Run tests for any PRs
   pull_request:
   schedule:
-    - cron: '43 10 * * 4'
+    - cron: "43 10 * * 4"
 
 env:
   IMAGE_NAME: netbox-plugins
@@ -158,7 +158,7 @@ jobs:
       # See https://github.com/netbox-community/netbox-docker/blob/0c99ff8b5663db3e0db5a45660cebda9f917508b/.github/workflows/release.yml#L47
       - name: Download netbox-docker test scripts
         run: |
-            git clone https://github.com/netbox-community/netbox-docker.git /tmp/netbox-docker
+          git clone https://github.com/netbox-community/netbox-docker.git /tmp/netbox-docker
       - name: Test the Docker image
         id: test-image
         run: cd /tmp/netbox-docker && IMAGE="localhost:5000/foobar/${{ env.IMAGE_NAME }}" ./test.sh
@@ -188,19 +188,19 @@ jobs:
       - name: Run dockle container image linter
         uses: goodwithtech/dockle-action@v0.1.2
         with:
-          image: 'registry:5000/foobar/${{ env.IMAGE_NAME }}'
+          image: "registry:5000/foobar/${{ env.IMAGE_NAME }}"
           insecure: true
-          format: 'sarif'
-          exit-code: '1'
-          exit-level: 'warn'
-          ignore: 'CIS-DI-0001,CIS-DI-0010,DKL-DI-0006'
+          format: "sarif"
+          exit-code: "1"
+          exit-level: "warn"
+          ignore: "CIS-DI-0001,CIS-DI-0010,DKL-DI-0006"
           output: sarif-reports
- #     - name: Move reports
- #       run: mkdir -p sarif-reports && cp ./*results.sarif ./sarif-reports/
+      #     - name: Move reports
+      #       run: mkdir -p sarif-reports && cp ./*results.sarif ./sarif-reports/
       - name: Upload Reports
         uses: github/codeql-action/upload-sarif@v3
         with:
-          sarif_file: 'sarif-reports'
+          sarif_file: "sarif-reports"
   trivy:
     name: Run Trivy tests
     needs:
@@ -228,16 +228,16 @@ jobs:
         uses: aquasecurity/trivy-action@master
         with:
           image-ref: localhost:5000/foobar/${{ env.IMAGE_NAME }}
-          format: 'template'
-          template: '@/contrib/sarif.tpl'
-          output: 'trivy-results.sarif'
-          severity: 'CRITICAL,HIGH'
-#      - name: Move reports
-#        run: mkdir -p sarif-reports && cp ./*results.sarif ./sarif-reports/
+          format: "template"
+          template: "@/contrib/sarif.tpl"
+          output: "trivy-results.sarif"
+          severity: "CRITICAL,HIGH"
+      #      - name: Move reports
+      #        run: mkdir -p sarif-reports && cp ./*results.sarif ./sarif-reports/
       - name: Upload Reports
         uses: github/codeql-action/upload-sarif@v3
         with:
-          sarif_file: 'trivy-results.sarif'
+          sarif_file: "trivy-results.sarif"
   anchore:
     name: Run Anchore tests
     needs:
@@ -272,7 +272,7 @@ jobs:
       - name: Upload Reports
         uses: github/codeql-action/upload-sarif@v3
         with:
-          sarif_file: 'sarif-reports'
+          sarif_file: "sarif-reports"
   release-docker:
     name: Release Docker images
     needs:
@@ -438,7 +438,7 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           context: .
           file: ./Dockerfile
-          platforms: linux/amd64,linux/arm64 
+          platforms: linux/amd64,linux/arm64
           push: ${{ github.event_name != 'pull_request' }}
           tags: |
             ${{ steps.prep.outputs.tags }}
@@ -453,4 +453,3 @@ jobs:
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
-

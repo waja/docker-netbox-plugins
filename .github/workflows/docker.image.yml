@@ -138,7 +138,7 @@ jobs:
     runs-on: ubuntu-latest
     services:
       registry:
-        image: registry:3
+        image: registry:3@sha256:1fc7de654f2ac1247f0b67e8a459e273b0993be7d2beda1f3f56fbf1001ed3e7
         ports:
           - 5000:5000
     steps:
@@ -171,7 +171,7 @@ jobs:
     runs-on: ubuntu-latest
     services:
       registry:
-        image: registry:3
+        image: registry:3@sha256:1fc7de654f2ac1247f0b67e8a459e273b0993be7d2beda1f3f56fbf1001ed3e7
         ports:
           - 5000:5000
     steps:
@@ -210,7 +210,7 @@ jobs:
     runs-on: ubuntu-latest
     services:
       registry:
-        image: registry:3
+        image: registry:3@sha256:1fc7de654f2ac1247f0b67e8a459e273b0993be7d2beda1f3f56fbf1001ed3e7
         ports:
           - 5000:5000
     steps:
@@ -247,7 +247,7 @@ jobs:
     runs-on: ubuntu-latest
     services:
       registry:
-        image: registry:3
+        image: registry:3@sha256:1fc7de654f2ac1247f0b67e8a459e273b0993be7d2beda1f3f56fbf1001ed3e7
         ports:
           - 5000:5000
     steps:
